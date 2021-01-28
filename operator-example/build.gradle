@@ -13,6 +13,9 @@ dependencies {
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
     implementation 'io.quarkus:quarkus-arc'
     testImplementation 'io.quarkus:quarkus-junit5'
+    implementation("com.slack.api:bolt:1.1.+")
+    implementation("com.slack.api:bolt-servlet:1.1.+")
+    implementation("com.slack.api:bolt-jetty:1.1.+")
 }
 
 group 'com.jeeatwor.k8s'
@@ -30,4 +33,13 @@ compileJava {
 
 compileTestJava {
     options.encoding = 'UTF-8'
+}
+
+test {
+    systemProperty "http.proxyHost", System.getProperty("http.proxyHost")
+    systemProperty "https.proxyHost", System.getProperty("https.proxyHost")
+    systemProperty "http.proxyPort", System.getProperty("http.proxyPort")
+    systemProperty "https.proxyPort", System.getProperty("https.proxyPort")
+    systemProperty "slack.bot.token", System.getenv("SLACK_BOT_TOKEN")
+    systemProperty "e2eTest", project.getProperty("e2eTest")
 }

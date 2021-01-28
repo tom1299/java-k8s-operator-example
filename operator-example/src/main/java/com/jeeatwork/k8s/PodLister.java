@@ -1,5 +1,6 @@
 package com.jeeatwork.k8s;
 
+import com.slack.api.bolt.App;
 import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.quarkus.runtime.StartupEvent;
@@ -12,6 +13,9 @@ public class PodLister {
 
     @Inject
     private KubernetesClient client;
+
+    @Inject
+    private App app;
 
     void onStartup(@Observes StartupEvent _ev) {
         List<Pod> podList = client.pods().list().getItems();
