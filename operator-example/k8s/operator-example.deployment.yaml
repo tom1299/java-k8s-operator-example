@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: operator-example
+spec:
+  selector:
+    matchLabels:
+      app: operator-example
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: operator-example
+    spec:
+      serviceAccountName: operator-example
+      containers:
+        - image: ghcr.io/tom1299/k8s-udp-load-balancing/quarkus-k8s-operator
+          name: operator-example
+          imagePullPolicy: IfNotPresent
