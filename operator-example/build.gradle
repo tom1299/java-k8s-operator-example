@@ -10,6 +10,7 @@ repositories {
 
 dependencies {
     implementation 'io.quarkus:quarkus-kubernetes-client'
+    implementation 'io.quarkus:quarkus-scheduler'
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
     implementation 'io.quarkus:quarkus-arc'
     testImplementation 'io.quarkus:quarkus-junit5'
