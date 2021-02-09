@@ -17,3 +17,10 @@ spec:
         - image: ghcr.io/tom1299/k8s-udp-load-balancing/quarkus-k8s-operator
           name: operator-example
           imagePullPolicy: Always
+          env:
+          - name: SLACK_BOT_TOKEN
+            value: "XXX"
+          - name: SLACK_CHANNEL
+            value: "XXX"
+          - name: K8S_NAMESPACE
+            value: "default"
