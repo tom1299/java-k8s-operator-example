@@ -1,5 +1,6 @@
 package com.jeeatwork;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.slack.api.Slack;
 import com.slack.api.methods.MethodsClient;
 import com.slack.api.methods.SlackApiException;
@@ -15,17 +16,18 @@ public class SlackTest {
     @Test
     @EnabledIfSystemProperty(named = "e2eTest", matches = "true")
     public void testSlack() throws IOException, SlackApiException {
-        Slack slack = Slack.getInstance();
         String slackBotToken = System.getProperty("slack.bot.token");
+        String slackChannel = System.getProperty("slack.channel");
 
+        Slack slack = Slack.getInstance();
         MethodsClient methods = slack.methods(slackBotToken);
-
         ChatPostMessageRequest request = ChatPostMessageRequest.builder()
-                .channel("C01KNA05BAA") // Use a channel ID `C1234567` is preferrable
-                .text(":wave: Hi from a bot written in Java!")
+                .channel(slackChannel)
+                .text("This is a list:\n• Entry1\n• Entry2\n• Entry3\n")
+                .mrkdwn(true)
                 .build();
 
         ChatPostMessageResponse response = methods.chatPostMessage(request);
-        System.out.println(response);
+        assertTrue(response.isOk());
     }
 }
